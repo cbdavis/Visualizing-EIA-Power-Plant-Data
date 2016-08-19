@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization and Analysis Tutorial"
+title: "Data Analysis and Visualization Tutorial"
 author: "Chris Davis"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
@@ -9,7 +9,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-**The shortened URL for this page is [http://is.gd/GESS2016](http://is.gd/GESS2016)**
+The shortened URL for this page is **[http://is.gd/GESS2016](http://is.gd/GESS2016)**
+
+The journal article **[The State of the States: Data-driven Analysis of the US Clean Power Plan](http://www.sciencedirect.com/science/article/pii/S1364032116001271)** shows applications of the analysis and visualization shown here
 
 ### Introduction
 
@@ -17,7 +19,8 @@ There are a variety of different tools available which are useful for data visua
 
 What we'll focus on today is an example using the R programming language and two of its libraries which are commonly used for data analysis and visualization: dplyr and ggplot2.  R is a programming language that is commonly used for data analysis.  As R is open source, people are also free to contribute libraries to it that help to extend its functionality in ways that allow you to do new things, or make it easier to do existing things.  Currently there are nearly [9000 packages](https://cran.r-project.org/web/packages/) meaning that you can often reuse code instead of having to create something yourself.
 
-For both of the dplyr and ggplot2 libraries, there are reference sheets available which give a quick overview of what they're capable of.  Today we'll be showing only a small subset of their functionality.  **For trying things on your own, these can be very helpful.**  
+#### Reference Sheets
+For both of the dplyr and ggplot2 libraries, there are reference sheets available which give a quick overview of what they're capable of.  Today we'll be showing only a small subset of their functionality.  For trying things on your own, these can be very helpful.
 
 * [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 * [Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
@@ -31,13 +34,13 @@ In this tutorial we will show how to use these open source libraries to be able 
 
 ### First Steps
 
-* Download [this zip file](https://github.com/cbdavis/Visualizing-EIA-Power-Plant-Data/archive/master.zip) to your computer and extract its contents.
-* Open up RStudio.  If you do not have it installed, you can [download it here](https://www.rstudio.com/products/rstudio/download/).  On the university computers you should be able to find it in the Start Menu by looking for `Mathematics & Statistics` -> `R`
-* Open a project by doing: `File` -> `Open Project` -> `Visualizing-EIA-Power-Plant-Data.Rproj`
+* **Download [this zip file](https://github.com/cbdavis/Visualizing-EIA-Power-Plant-Data/archive/master.zip)** to your computer and extract its contents.
+* **Open up RStudio**.  If you do not have it installed, you can [download it here](https://www.rstudio.com/products/rstudio/download/).  On the university computers you should be able to find it in the Start Menu by looking for `Mathematics & Statistics` -> `R`
+* **Open a project** by doing: `File` -> `Open Project` -> `Visualizing-EIA-Power-Plant-Data.Rproj`
 
 The file `Visualizing-EIA-Power-Plant-Data.Rproj` will be in the same folder as the rest of the files from the zip file.  When you open a project like this, it tells RStudio the "working directory", i.e. the default folder where you want to look for files.  This makes it easy for R to find all the files that you need.
 
-Once everything is installed, open up RStudio and install the necessary packages for R.  In the bottom right quadrant of RStudio, there is a `Packages` tab, with an option to `Install`.  Click on this to install the following libraries: 
+Once everything is installed, **open up RStudio and install the necessary packages for R**.  In the bottom right quadrant of RStudio, there is a `Packages` tab, with an option to `Install`.  Click on this to install the following libraries: 
 
 * [ggplot2](http://docs.ggplot2.org/current/) - this will be used to do most of the plotting.
 * [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) - slice & dice data & perform complex operations with minimal code
@@ -92,9 +95,7 @@ library(lubridate)
 
 To start off, we'll look at a data set that is included with R.  This is a [famous data set collected in 1936 by the statistician Ronald Fisher](https://en.wikipedia.org/wiki/Iris_flower_data_set) that documents measurements of different species of iris flowers.  It's an interesting data set since the different species have similar measurements, and in some cases it can be difficult to tell them apart simply from their measurements.
 
-Tabular data like you would find in spreadsheets is represented within R in what are known as data frames.  
-
-Looking at the first few lines of the `iris` data frame, we see the following.  There are five columns: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` and `Species`
+Tabular data like you would find in spreadsheets is represented within R in what are known as **data frames**.  Looking at the first few lines of the `iris` data frame, we see the following.  There are five columns: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` and `Species`
 ```{r, eval=FALSE}
 head(iris)
 ```
@@ -102,6 +103,8 @@ head(iris)
 ```{r echo=FALSE}
 kable(head(iris))
 ```
+
+The `head` command just shows us the top few rows, and you can also use the `tail` command to look at the bottom rows.
 
 One of the nice things about data frames is that you can use the names of the columns (combined with the `$` sign) to directly access the values in that column.  Below we look at the values for the `Sepal.Length` column in the `iris` data frame.
 
@@ -112,7 +115,7 @@ iris$Sepal.Length
 ---
 
 ### ggplot2
-Many visualizations created with R are often created using the [ggplot2 library](http://ggplot2.org/).  What's interesting about this library is that way in which it allows you to construct visualizations.  The gg in ggplot2 stands for the Grammar of Graphics. The idea is that when you create plots, you are basically writing sentences that are of the form:
+Many visualizations created with R are often created using the **[ggplot2 library](http://ggplot2.org/)**.  What's interesting about this library is that way in which it allows you to construct visualizations.  The gg in ggplot2 stands for the Grammar of Graphics. The idea is that when you create plots, you are basically writing sentences that are of the form:
 
 `Here's my data frame` + `Here are the x and y columns` + `Apply this kind of plot to that data` + `These are the axis labels` + `here are some more additional transformations`
 
@@ -176,7 +179,7 @@ ggplot(iris, aes(x=Species, y=Sepal.Length)) + geom_violin()
 
 ---
 
-For analyzing the data, we can use the dplyr library.  The dplyr library takes a very similar approach to what we see with ggplot.  We start off with data represented in a table, or in what R calls a data frame, and then we perform a series of operations or data transformations which are connected together via the `%>%` symbol which acts as a sort of "pipe" through which data flows.  
+For analyzing the data, we can use the **[dplyr library](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)**.  The dplyr library takes a very similar approach to what we see with ggplot.  We start off with data represented in a table, or in what R calls a data frame, and then we perform a series of operations or data transformations which are connected together via the `%>%` symbol which acts as a sort of "pipe" through which data flows.  
 
 In very general terms, we may create a series of statements that look like:
 
@@ -220,7 +223,7 @@ For a more complicated example, we use a data set on electricity generation in t
 load("./data/generationAndFuelData.RData")
 ```
 
-Here we see a preview of the data where we only look at the columns for `plant_name`, `state`, `general_fuel_name` (the fuel type), `date`, and `netgen` (the amount of electricity generated).
+Here we see a preview of the data where we only look at the columns for `plant_name`, `state`, `general_fuel_name` (the fuel type), `date`, and `netgen` (the amount of electricity generated).  For this dataset, the `date` column actually represents the month and year, and all days are listed as the 15th of the month.
 
 ```{r, eval=FALSE}
 head(generationAndFuelData[,c("plant_name", "state", "general_fuel_name", "date", "netgen")])
@@ -437,7 +440,7 @@ kable(retiredAndCancelledGenerators %>%
   arrange(desc(total_capacity_mw)) %>% top_n(10))
 ```
 
-To get a better understanding of these trends, we can put all this information into a single graph.  We'll have to do this in a series of steps.
+Just from looking at this, we see that the US is to some extent transitioning away from fossil fuels and starting to increasing its amount of generation from renewables.  To get a better understanding of these trends, we can put all this information into a single graph.  We'll have to do this in a series of steps.
 
 We create a new data frame `retired_per_year_per_fuel` to indicate how much generation per capacity per year and per fuel has been retired (or is planned to be retired).
 
