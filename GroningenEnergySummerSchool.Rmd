@@ -294,6 +294,12 @@ We can also do this for the entire US by using the `facet_wrap` command to creat
 
 From this plot, we can see the diversity across the US states in terms of the types of fuel used.  It also becomes clear which states have changed their fuel types over time.  In particular, you can see large amounts of wind capacity being installed in the states in the Midwest of the country, and a general shift away from coal to increased use of natural gas.
 
+In the previous stacked area plots, it can be a little difficult to distinguish between the colors in the plots.  To help with this, we use:
+
+`geom_line(aes(ymax=total_generation), position="stack", size=0.1)`
+
+This adds a small black line which corresponds to the stacked values calculated from the `total_generation` values.
+
 ```{r allStatesFacetWrap, fig.width=16, fig.height=10, cache=TRUE}
 tmp = generationAndFuelData %>% 
   mutate(year = year(date)) %>%
@@ -304,6 +310,7 @@ ggplot(tmp, aes(x=year,
                 y=total_generation, 
                 fill=general_fuel_name)) + 
   geom_area() + 
+  geom_line(aes(ymax=total_generation), position="stack", size=0.1) + 
   facet_wrap(~state, scales="free_y")
 ```
 
