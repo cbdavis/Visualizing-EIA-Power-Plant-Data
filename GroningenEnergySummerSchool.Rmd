@@ -9,13 +9,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+**The shortened URL for this page is [http://is.gd/GESS2016](http://is.gd/GESS2016)**
+
 ### Introduction
 
-There are a variety of different tools available which are useful for data visualization and analysis.  For dealing with large amounts of data you may see people using [R](https://www.r-project.org/) or [Python](https://www.python.org/).  For visualization on the web, you often see Javascript libraries just as [d3.js](https://d3js.org/).
+There are a variety of different tools available which are useful for data visualization and analysis.  For dealing with large amounts of data you may see people using [R](https://www.r-project.org/) or [Python](https://www.python.org/).  For visualization on the web, you often see JavaScript libraries just as [d3.js](https://d3js.org/).
 
 What we'll focus on today is an example using the R programming language and two of its libraries which are commonly used for data analysis and visualization: dplyr and ggplot2.  R is a programming language that is commonly used for data analysis.  As R is open source, people are also free to contribute libraries to it that help to extend its functionality in ways that allow you to do new things, or make it easier to do existing things.  Currently there are nearly [9000 packages](https://cran.r-project.org/web/packages/) meaning that you can often reuse code instead of having to create something yourself.
 
-For both of the dplyr and ggplot2 libraries, there are reference sheets available which give a quick overview of what they're capable of.  Today we'll be showing only a small subset of their functionality.
+For both of the dplyr and ggplot2 libraries, there are reference sheets available which give a quick overview of what they're capable of.  Today we'll be showing only a small subset of their functionality.  **For trying things on your own, these can be very helpful.**  
 
 * [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 * [Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
@@ -23,7 +25,7 @@ For both of the dplyr and ggplot2 libraries, there are reference sheets availabl
 ---
 
 ### Learning Objectives
-In this tutorial we will show how to use these open source libraries to be able to explore large complex datasets.  More specifically, after this lecture you should be familiar with several methods of filtering, grouping and summarizing data, in addition to different ways of visualizaing the data.  Give a complex dataset of your own, you should be able to describe different options that would allow you to explore the data.
+In this tutorial we will show how to use these open source libraries to be able to explore large complex datasets.  More specifically, after this lecture you should be familiar with several methods of filtering, grouping and summarizing data, in addition to different ways of visualizing the data.  Give a complex dataset of your own, you should be able to describe different options that would allow you to explore the data.
 
 ---
 
@@ -35,10 +37,8 @@ In this tutorial we will show how to use these open source libraries to be able 
 
 The file `Visualizing-EIA-Power-Plant-Data.Rproj` will be in the same folder as the rest of the files from the zip file.  When you open a project like this, it tells RStudio the "working directory", i.e. the default folder where you want to look for files.  This makes it easy for R to find all the files that you need.
 
-Once everything is installed, open up RStudio and install the necessary packages for R:
+Once everything is installed, open up RStudio and install the necessary packages for R.  In the bottom right quadrant of RStudio, there is a `Packages` tab, with an option to `Install`.  Click on this to install the following libraries: 
 
-* In the bottom right quadrant of RStudio, there is a `Packages` tab, with an option to `Install`. 
-Click on this to install the following libraries: 
 * [ggplot2](http://docs.ggplot2.org/current/) - this will be used to do most of the plotting.
 * [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) - slice & dice data & perform complex operations with minimal code
 * [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) - makes it easy to work with date and time formats in R.  
@@ -65,7 +65,7 @@ RStudio has four panels, and in the default config these are:
 * **Files** - This shows everything in your current working directory
 * **Plots** - Once you start plotting, multiple plots will be stored here.  There are arrows in this view that allow you to navigate  between multiple plots
 * **Packages** - Shows all the packages installed and currently loaded
-* **Help** - Shows documentation for varous functions.  
+* **Help** - Shows documentation for various functions.  
 
 You can run lines of code by highlighting them, and then clicking on "Run" above.
 You can run all the code at once by doing Code -> Run Region -> Run All
@@ -103,7 +103,7 @@ head(iris)
 kable(head(iris))
 ```
 
-One of the nice things about data frames is that you can use the names of the columns (combined with the `$` sign) to directly access the values in that column:
+One of the nice things about data frames is that you can use the names of the columns (combined with the `$` sign) to directly access the values in that column.  Below we look at the values for the `Sepal.Length` column in the `iris` data frame.
 
 ```{r}
 iris$Sepal.Length
@@ -161,7 +161,7 @@ ggplot(iris, aes(x=Sepal.Length,
 
 ---
 
-Instead of just having numeric values on the axes, we can also use categorical values such as the species, and then use this to create a boxplot:
+Instead of just having numeric values on the axes, we can also use categorical values such as the species, and then use this to create a box plot:
 
 ```{r irisBoxplot, cache=TRUE}
 ggplot(iris, aes(x=Species, y=Sepal.Length)) + geom_boxplot()
@@ -311,7 +311,7 @@ ggplot(tmp, aes(x=year,
 
 Similarly, we can analyze yearly generation from different sources for the entire US.  Again we use a `facet_wrap` with independent scaling of the y axes.  Additionally, `expand_limits` is specified to make sure that the minimum value shown on the y axes is zero.
 
-What we can see with these graphs is that generation from coal is going down, while that from natural gas is increasion.  It's also interesting to note that generation from solar and wind are increasing at a very fast pace, although they are still only a small part of total 
+What we can see with these graphs is that generation from coal is going down, while that from natural gas is increasing.  It's also interesting to note that generation from solar and wind are increasing at a very fast pace, although they are still only a small part of total 
 
 ```{r entireUSGenerationByFuelType, cache=TRUE, fig.width=10, fig.height=4}
 tmp = generationAndFuelData %>% 
@@ -539,4 +539,4 @@ ggplot() +
 
 This has been just a brief introduction into data analysis and visualization, and there is clearly much more that is possible.  When choosing the types of tools that you will use for this, it is also important to think not just in terms of programming languages, but also about the communities around them.  
 
-With languages such as R, Python and Javascript, there are large numbers of people who are actively using these, which means that it is easy to find documentation and help.  Furthermore, the open source nature of these means that people are continually developing new libraries which help to provide additional functionality that may be useful for you.  In practice, you may find yourself using several libraries developed by different people, which help you to manage aspects of data gathering, analysis and visualization.
+With languages such as R, Python and JavaScript, there are large numbers of people who are actively using these, which means that it is easy to find documentation and help.  Furthermore, the open source nature of these means that people are continually developing new libraries which help to provide additional functionality that may be useful for you.  In practice, you may find yourself using several libraries developed by different people, which help you to manage aspects of data gathering, analysis and visualization.
