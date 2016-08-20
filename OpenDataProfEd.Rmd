@@ -9,6 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+The shortened URL for this page is **[http://is.gd/ODGU2016](http://is.gd/ODGU2016)**
+
+The journal article **[The State of the States: Data-driven Analysis of the US Clean Power Plan](http://www.sciencedirect.com/science/article/pii/S1364032116001271)** shows applications of the analysis and visualization shown here
+
+
 ### Introduction
 
 There are a variety of different tools available which are useful for data visualization and analysis.  For dealing with large amounts of data you may see people using [R](https://www.r-project.org/) or [Python](https://www.python.org/).  For visualization on the web, you often see Javascript libraries just as [d3.js](https://d3js.org/).
